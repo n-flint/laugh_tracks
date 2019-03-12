@@ -1,0 +1,8 @@
+<h1>Laugh Tracks</h1>
+<% @comedians.each do |comedian| %>
+<section id="comedian-<%= comedian.id %>">
+  <%= comedian.name %>
+  <%= comedian.age %>
+  <%= comedian.city %>
+</section>
+<% end %>
