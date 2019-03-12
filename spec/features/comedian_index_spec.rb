@@ -14,6 +14,8 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
     it 'can see list of all comedians' do
 
       visit comedians_path
+      save_and_open_page
+      
 
       expect(page).to have_content("Laugh Tracks")
 
@@ -21,14 +23,14 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
         expect(page).to have_content(@comedian_1.name)
         expect(page).to have_content(@comedian_1.age)
         expect(page).to have_content(@comedian_1.city)
-        end
+      end
 
       within  "#comedian-#{@comedian_2.id}" do
         expect(page).to have_content(@comedian_2.name)
         expect(page).to have_content(@comedian_2.age)
         expect(page).to have_content(@comedian_2.city)
-        end
       end
+    end
 
 
 end
