@@ -6,4 +6,8 @@ describe Special, type: :model do
         it { should validate_presence_of :runtime}
         it { should validate_presence_of :thumbnail}
     end
+
+    describe 'Relationships' do
+        it { should belong_to :comedian}
+    end
 end
