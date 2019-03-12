@@ -10,4 +10,13 @@ describe Special, type: :model do
     describe 'Relationships' do
         it { should belong_to :comedian}
     end
+
+    describe 'Class Methods' do
+      it '.average_length' do
+        actual = Special.average_length
+
+        expect(actual).to eq(100)
+      end
+
+    end
 end
