@@ -1,10 +1,16 @@
 <h1>Laugh Tracks</h1>
 <section class="statistics">
   <div class="avg_age">
-    <p>Average Age: <%= Comedian.average_age %> </p>
+    <h4>Average Age: <%= @avg_age %> </h4>
   </div>
   <div class="avg_runtime">
-    <p>Average Special Runtime (Mins): <%= Special.average_length %> </p>
+    <h4>Average Special Runtime (Mins): <%= @avg_runtime %> </p>
+  </div>
+  <div class="cities">
+    <h4>Unique Cities:</h4>
+    <% @cities.each do |city| %>
+    <ul><%= city %></ul>
+    <% end %>
   </div>
 </section>
 <section class="comedians">

@@ -7,9 +7,11 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
   before :each do
     @comedian_1 = Comedian.create!(name: "Comedian_1", age: "30", city: "City_1")
     @comedian_2 = Comedian.create(name: "Comedian_2", age: "50", city: "City_2")
+    @comedian_3 = Comedian.create(name: "Comedian_3", age: "100", city: "City_2")
     @special_1 = @comedian_1.specials.create( title: "Title 1", runtime: 100, thumbnail: "http://ingstadmedia.com/kduz/wp-content/uploads/sites/7/2018/08/microphone-clipart-1.jpg")
     @special_2 = @comedian_1.specials.create(title: "Title 2", runtime: 150, thumbnail: "http://ingstadmedia.com/kduz/wp-content/uploads/sites/7/2018/08/microphone-clipart-1.jpg")
     @special_3 = @comedian_2.specials.create(title: "Title 3", runtime: 50, thumbnail: "http://ingstadmedia.com/kduz/wp-content/uploads/sites/7/2018/08/microphone-clipart-1.jpg")
+    @special_4 = @comedian_3.specials.create(title: "Title 4", runtime: 10, thumbnail: "http://ingstadmedia.com/kduz/wp-content/uploads/sites/7/2018/08/microphone-clipart-1.jpg")
   end
 
     it 'can see list of all comedians' do
@@ -50,12 +52,19 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
     it 'can see statistics of all the comedians' do
 
       visit comedians_path
-      # save_and_open_page
 
       within  ".statistics" do
-          expect(page).to have_content("Average Age: #{@comedians.average_age}")
-          expect(page).to have_content("Average Special Runtime (Mins): #{@specials.average_length}")
-          expect(page).to have_content("Unique Cities: #{@comedians.cities}")
+        within  ".avg_age" do
+          expect(page).to have_content("Average Age: #{Comedian.average_age}")
+        end
+        within  ".avg_runtime" do
+          expect(page).to have_content("Average Special Runtime (Mins): #{Special.average_length}")
+        end
+        within  ".cities" do
+          expect(page).to have_content("Unique Cities:")
+          expect(page).to have_content("#{@comedian_1.city}")
+          expect(page).to have_content("#{@comedian_2.city}")
+        end
       end
     end
 end
