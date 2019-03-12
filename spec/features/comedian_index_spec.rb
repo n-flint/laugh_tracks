@@ -35,6 +35,7 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
     it 'can see a list of all specials for each comedian' do
 
       visit comedians_path
+      # save_and_open_page
 
       within  "#comedian-#{@comedian_1.id}" do
         within  "#special-#{@special_1.id}" do
@@ -43,6 +44,18 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
           expect(page).to have_css("img[src*='#{@special_1.thumbnail}']")
           expect(page).to_not have_content(@special_3.title)
         end
+      end
+    end
+
+    it 'can see statistics of all the comedians' do
+
+      visit comedians_path
+      # save_and_open_page
+
+      within  ".statistics" do
+          expect(page).to have_content("Average Age: #{@comedians.average_age}")
+          expect(page).to have_content("Average Special Runtime (Mins): #{@specials.average_length}")
+          expect(page).to have_content("Unique Cities: #{@comedians.cities}")
       end
     end
 end
