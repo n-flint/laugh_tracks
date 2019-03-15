@@ -27,11 +27,11 @@ describe Comedian, type: :model do
 
       expect(actual).to eq(60)
     end
-    # it '.cities' do
-    #   actual = Comedian.cities
-    #   expected = ["City_1", "City_2"]
-    #
-    #   expect(actual).to eq(expected)
-    # end
+    it '.cities' do
+      actual = Comedian.cities
+      expected = ["City_1", "City_2"]
+
+      expect(actual).to eq(expected)
+    end
   end
 end

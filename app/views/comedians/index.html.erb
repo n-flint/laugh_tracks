@@ -16,6 +16,7 @@
 <section class="comedians">
   <% @comedians.each do |comedian| %>
   <section id="comedian-<%= comedian.id %>">
+    <img class="comedian_thumbnail", src="<%= comedian.image_url %>"</img>
     <h2><%= comedian.name %></h2>
     <p><%= comedian.age %> </p>
     <p><%= comedian.city %> </p>
@@ -24,7 +25,7 @@
     <section id="special-<%= special.id %>">
       <p><%=special.title%></p>
       <p><%=special.runtime%></p>
-      <img class="thumbnail", src="<%= special.thumbnail %>"</img>
+      <img class="special_thumbnail", src="<%= special.thumbnail %>"</img>
     </section>
     <% end %>
   </section>

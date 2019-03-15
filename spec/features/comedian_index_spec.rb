@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe 'when visitor visits comedians index page', type: :feature do
 
   before :each do
-    @comedian_1 = Comedian.create!(name: "Comedian_1", age: "30", city: "City_1")
-    @comedian_2 = Comedian.create(name: "Comedian_2", age: "50", city: "City_2")
+    @comedian_1 = Comedian.create!(name: "Comedian_1", age: "34", city: "City_1")
+    @comedian_2 = Comedian.create(name: "Comedian_2", age: "34", city: "City_2")
     @comedian_3 = Comedian.create(name: "Comedian_3", age: "100", city: "City_2")
     @special_1 = @comedian_1.specials.create( title: "Title 1", runtime: 100, thumbnail: "http://ingstadmedia.com/kduz/wp-content/uploads/sites/7/2018/08/microphone-clipart-1.jpg")
     @special_2 = @comedian_1.specials.create(title: "Title 2", runtime: 150, thumbnail: "http://ingstadmedia.com/kduz/wp-content/uploads/sites/7/2018/08/microphone-clipart-1.jpg")
@@ -37,7 +37,6 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
     it 'can see a list of all specials for each comedian' do
 
       visit comedians_path
-      # save_and_open_page
 
       within  "#comedian-#{@comedian_1.id}" do
         within  "#special-#{@special_1.id}" do
@@ -60,6 +59,32 @@ RSpec.describe 'when visitor visits comedians index page', type: :feature do
         within  ".avg_runtime" do
           expect(page).to have_content("Average Special Runtime (Mins): #{Special.average_length}")
         end
+        within  ".cities" do
+          expect(page).to have_content("Unique Cities:")
+          expect(page).to have_content("#{@comedian_1.city}")
+          expect(page).to have_content("#{@comedian_2.city}")
+        end
+      end
+    end
+
+    it 'can search with query params' do
+      visit comedians_path(age: 34)
+
+      expect(page).to have_content("#{@comedian_1.name}")
+      expect(page).to have_content("#{@comedian_2.name}")
+      expect(page).to_not have_content("#{@comedian_3.name}")
+    end
+
+    it 'stats change with query params' do
+      visit comedians_path(age: 34)
+
+      within  ".statistics" do
+        within  ".avg_age" do
+          expect(page).to have_content("Average Age: 34")
+        end
+        # within  ".avg_runtime" do
+        #   expect(page).to have_content("Average Special Runtime (Mins): 100")
+        # end
         within  ".cities" do
           expect(page).to have_content("Unique Cities:")
           expect(page).to have_content("#{@comedian_1.city}")
