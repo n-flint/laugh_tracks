@@ -1,0 +1,33 @@
+<h1>Laugh Tracks</h1>
+<section class="statistics">
+  <div class="avg_age">
+    <h4>Average Age: <%= @avg_age %> </h4>
+  </div>
+  <div class="avg_runtime">
+    <h4>Average Special Runtime (Mins): <%= @avg_runtime %> </p>
+  </div>
+  <div class="cities">
+    <h4>Unique Cities:</h4>
+    <% @cities.each do |city| %>
+    <ul><%= city %></ul>
+    <% end %>
+  </div>
+</section>
+<section class="comedians">
+  <% @comedians.each do |comedian| %>
+  <section id="comedian-<%= comedian.id %>">
+    <img class="comedian_thumbnail", src="<%= comedian.image_url %>"</img>
+    <h2><%= comedian.name %></h2>
+    <p><%= comedian.age %> </p>
+    <p><%= comedian.city %> </p>
+    <h3>Specials:</h3>
+    <% comedian.specials.each do |special| %>
+    <section id="special-<%= special.id %>">
+      <p><%=special.title%></p>
+      <p><%=special.runtime%></p>
+      <img class="special_thumbnail", src="<%= special.thumbnail %>"</img>
+    </section>
+    <% end %>
+  </section>
+  <% end %>
+</section>
